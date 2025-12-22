@@ -8,7 +8,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import FakeEmbeddings
 from langchain_community.llms import HuggingFacePipeline
 from transformers import pipeline
-from langchain_community.vectorstores import FAISS
+from langchain_community.vectorstores import DocArrayInMemorySearch
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 
@@ -104,4 +104,5 @@ if uploaded_file:
 
 else:
     st.info("Upload a PDF from the sidebar to begin.")
+
 
