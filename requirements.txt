@@ -1,7 +1,8 @@
 streamlit==1.32.2
 langchain==0.1.16
 langchain-community==0.0.36
+docarray==0.40.0
 pypdf==4.2.0
-faiss-cpu==1.7.4
+
 
 
