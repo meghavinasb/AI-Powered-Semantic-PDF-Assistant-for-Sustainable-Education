@@ -35,7 +35,11 @@ def process_pdf(pdf_path):
 
     embeddings = FakeEmbeddings(size=384)
 
-    vectorstore = FAISS.from_documents(chunks, embeddings)
+    vectorstore = DocArrayInMemorySearch.from_documents(
+        chunks,
+        embeddings
+    )  
+
     return vectorstore
 
 # ------------------ MAIN LOGIC ------------------
@@ -104,5 +108,6 @@ if uploaded_file:
 
 else:
     st.info("Upload a PDF from the sidebar to begin.")
+
 
 
