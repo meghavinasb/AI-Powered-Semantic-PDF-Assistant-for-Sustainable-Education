@@ -2,7 +2,7 @@ import streamlit as st
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import FakeEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import DocArrayInMemorySearch
 
 # ------------------ STREAMLIT CONFIG ------------------
@@ -28,8 +28,10 @@ def process_pdf(pdf_path: str):
     )
     chunks = splitter.split_documents(documents)
 
-    # Lightweight, cloud-safe embeddings
-    embeddings = FakeEmbeddings(size=384)
+    # ✅ REAL semantic embeddings (LOCAL USE)
+    embeddings = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
 
     vectorstore = DocArrayInMemorySearch.from_documents(
         chunks,
@@ -40,7 +42,7 @@ def process_pdf(pdf_path: str):
 
 # ------------------ MAIN LOGIC ------------------
 if uploaded_file:
-    with st.spinner("Processing PDF and building index..."):
+    with st.spinner("Processing PDF and building semantic index..."):
         pdf_path = "temp.pdf"
         with open(pdf_path, "wb") as f:
             f.write(uploaded_file.read())
@@ -54,7 +56,7 @@ if uploaded_file:
     query = st.text_input("Enter your question:")
 
     if query:
-        with st.spinner("Retrieving relevant content..."):
+        with st.spinner("Retrieving semantically relevant content..."):
             docs = vectorstore.as_retriever(
                 search_kwargs={"k": 3}
             ).get_relevant_documents(query)
@@ -73,4 +75,3 @@ if uploaded_file:
 
 else:
     st.info("Upload a PDF from the sidebar to begin.")
-
