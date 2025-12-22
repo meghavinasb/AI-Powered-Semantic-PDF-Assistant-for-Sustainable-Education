@@ -1,6 +1,5 @@
 import os
 import streamlit as st
-from dotenv import load_dotenv
 from pathlib import Path
 
 from langchain_community.document_loaders import PyPDFLoader
@@ -108,6 +107,7 @@ if uploaded_file:
 
 else:
     st.info("Upload a PDF from the sidebar to begin.")
+
 
 
 
