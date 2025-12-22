@@ -8,7 +8,7 @@ from langchain_community.vectorstores import DocArrayInMemorySearch
 # ------------------ STREAMLIT CONFIG ------------------
 st.set_page_config(page_title="PDF RAG", layout="wide")
 st.title("Semantic PDF Question Answering using RAG")
-st.write("📄 Upload a PDF and ask questions based on its content.")
+st.write("Upload a PDF and ask questions based on its content.")
 
 # ------------------ SIDEBAR ------------------
 st.sidebar.header("Upload PDF")
@@ -47,7 +47,7 @@ if uploaded_file:
 
         vectorstore = process_pdf(pdf_path)
 
-    st.success("✅ PDF processed successfully!")
+    st.success("PDF processed successfully!")
 
     # ------------------ UI: ASK QUESTION ------------------
     st.subheader("Ask Questions from the PDF")
@@ -59,7 +59,7 @@ if uploaded_file:
                 search_kwargs={"k": 3}
             ).get_relevant_documents(query)
 
-        st.markdown("### 📌 Retrieved Answer")
+        st.markdown("### Retrieved Answer")
 
         if not docs:
             st.write("No relevant information found.")
@@ -72,4 +72,5 @@ if uploaded_file:
                 )
 
 else:
-    st.info("👈 Upload a PDF from the sidebar to begin.")
+    st.info("Upload a PDF from the sidebar to begin.")
+
